@@ -4,7 +4,7 @@ import Task from "./Task";
 
 export default function TaskList({ tasks, setTasks }) {
   useEffect(() => {
-    fetch("http://localhost:3005/tasks")
+    fetch("https://much-todo-edz.uc.r.appspot.com/tasks")
       .then((response) => response.json())
       // .then(setTasks)
       .then((data) => setTasks(data))

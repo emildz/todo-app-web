@@ -12,7 +12,7 @@ export default function NewTask({ setTasks }) {
     
   };
   console.log("sending to API",taskObject);
-  fetch('http://localhost:3005/tasks', {
+  fetch('https://much-todo-edz.uc.r.appspot.com/tasks', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ export default function NewTask({ setTasks }) {
   })
     .then(() => {
       setNewTask('')
-      fetch('http://localhost:3005/tasks')
+      fetch('https://much-todo-edz.uc.r.appspot.com/tasks')
         .then(response => response.json())
         .then(data => setTasks(data))
     })
