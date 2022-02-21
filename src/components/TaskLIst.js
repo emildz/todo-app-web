@@ -1,47 +1,22 @@
-import { useState, useEffect } from 'react';
-import {List} from 'antd';
-import Task from './Task'
+import { List } from "antd";
+import { useEffect } from "react";
+import Task from "./Task";
 
+export default function TaskList({ tasks, setTasks }) {
+  useEffect(() => {
+    fetch("http://localhost:3005/tasks")
+      .then((response) => response.json())
+      // .then(setTasks)
+      .then((data) => setTasks(data))
+      .catch(alert);
+  }, []);
 
-const fakeTasks = [
-    {id:1, task: 'Buy Milk', done: false},
-    {id:2, task: 'Buy Beer', done: false},
-    {id:3, task: 'Buy Trulys', done: false},
-    {id:4, task: 'Buy Wine', done: true},
-    {id:5, task: 'Buy Paper Towels', done: false},
-]
-
-export default function TaskList(){
-    const [tasks,setTasks] = useState(fakeTasks)
-    
-    
-    useEffect(() => {
-        fetch('https://much-todo-bc.uc.r.appspot.com/tasks')
-        .then(response => response.json())
-        .then(data => setTasks(data))
-        .catch(alert)
-    },[])
-
-    console.log('here are my task state from API', tasks)
-    return (
-        <>
-        <ul>
-            {tasks && tasks.map(singleTask => {
-                return (
-                <li>{singleTask.task} </li>
-                )
-            }
-            )}
-            <li>item 2</li>
-            <li>item 3</li>
-        </ul>
-        </>
-    )
+  return (
+    <List
+      className="task-list"
+      bordered
+      dataSource={tasks}
+      renderItem={(item) => <Task item={item} setTasks={setTasks} />}
+    />
+  );
 }
-//   }      <List
-//         bordered
-//         dataSource={tasks}
-//         renderItem={item => <Task item ={item} />}
-//       />
-//     )
-// }
